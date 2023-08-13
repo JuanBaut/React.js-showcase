@@ -1,0 +1,60 @@
+.sbContainer {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: auto;
+    padding-top: 1rem;
+    border-radius: 1rem;
+}
+
+.inputSearch {
+    box-shadow: 2px 2px 10px 6px rgba(0, 0, 0, 0.16);
+    background-color: #34A0A4;
+    color: aliceblue;
+
+    width: 300px;
+    height: 2.5rem;
+
+    border-radius: 1rem;
+    border: none;
+    padding: .8rem;
+    margin: .8rem;
+    outline: none;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.inputSearch::placeholder {
+    color: lightsteelblue;
+}
+
+.button {
+    box-shadow: 2px 2px 10px 6px rgba(0, 0, 0, 0.16);
+    background-color: #34A0A4;
+    height: 2.5rem;
+    color: aliceblue;
+    border-radius: 1rem;
+    border: none;
+    padding: .8rem;
+    margin: .8rem;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #168aad;
+}
+
+.button:active {
+    transform: translateY(2px);
+    background-color: #184e77;
+}

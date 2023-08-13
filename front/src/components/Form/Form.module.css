@@ -1,0 +1,97 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+    height: 100vh;
+}
+
+.logo {
+    filter: drop-shadow(5px 5px 10px #00000061);
+    height: 6rem;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2rem;
+}
+
+.form {
+    filter: drop-shadow(5px 5px 10px #00000061);
+    background-color: #31969B;
+    width: 20rem;
+    border-radius: 1rem;
+    margin-bottom: 5%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.inputContainer {
+    background-color: #1A759F;
+    color: aliceblue;
+    border-radius: 1rem;
+    margin: 0rem;
+    padding: 1rem;
+    height: .5rem;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    text-align: center;
+}
+
+.input {
+    background-color: transparent;
+    color: aliceblue;
+    border: none;
+    margin: 0rem;
+    padding: 0;
+    outline: none;
+    user-select: none;
+    vertical-align: middle;
+}
+
+.input::placeholder {
+    color: lightsteelblue;
+}
+
+
+.errorContainer {
+    height: 2rem;
+}
+
+.error {
+    font-size: small;
+    margin: 0;
+    padding: .5rem 0;
+    color: #B5E48C;
+}
+
+.button {
+    background-color: #1A759F;
+    height: 2.5rem;
+    color: aliceblue;
+    border-radius: 1rem;
+    border: none;
+
+    padding: 1rem;
+    margin: 0 auto;
+
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #76C893;
+}
+
+.button:active {
+    transform: translateY(2px);
+    background-color: #55B49C;
+}
