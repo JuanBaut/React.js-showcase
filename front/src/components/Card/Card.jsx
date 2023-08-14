@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Star, StarOutline } from '@mui/icons-material';
 
-const Card = ({ id, name, image, onClose, gender, addFav, removeFav, myFavorites }) => {
+const Card = ({ id, name, image, onClose, gender, addFav, removeFav, myFav }) => {
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -30,12 +30,12 @@ const Card = ({ id, name, image, onClose, gender, addFav, removeFav, myFavorites
   };
 
   useEffect(() => {
-    myFavorites.forEach((fav) => {
+    myFav.forEach((fav) => {
       if (fav.id === id) {
         setIsFav(true);
       }
     });
-  }, [myFavorites]);
+  }, [myFav]);
 
   return (
     <div className={style.container}>
@@ -71,7 +71,7 @@ const Card = ({ id, name, image, onClose, gender, addFav, removeFav, myFavorites
 
 const mapStateToProps = (state) => {
   return {
-    myFavorites: state.myFavorites,
+    myFav: state.myFav,
   };
 };
 

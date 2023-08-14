@@ -1,9 +1,8 @@
-import { ADD_FAV, FILTER, REMOVE_FAV, ORDER } from './action-types';
-
+import { ADD_FAV, FILTER, REMOVE_FAV, ORDER, RESET } from './action-types';
 
 const initialState = {
-    myFavorites: [],
-    allFavCharacters: []
+    myFav: [], //rendered
+    myFavCopy: [] //backup
 };
 
 const reducer = (state = initialState, { type, payload }) => {
@@ -11,56 +10,40 @@ const reducer = (state = initialState, { type, payload }) => {
         case ADD_FAV:
             return {
                 ...state,
-                myFavorites: [...state.allFavCharacters, payload],
-                allFavCharacters: [...state.allFavCharacters, payload]
+                myFav: [...state.myFav, payload],
+                myFavCopy: [...state.myFavCopy, payload]
             };
 
         case REMOVE_FAV:
-            const updatedFavorites = state.allFavCharacters.filter(fav => fav.id !== payload);
             return {
                 ...state,
-                myFavorites: updatedFavorites
+                myFav: state.myFav.filter(fav => fav.id !== payload),
+                myFavCopy: state.myFavCopy.filter(fav => fav.id !== payload)
             };
 
         case FILTER:
-            let filteredFavorites = [...state.allFavCharacters];
-
-            if (payload !== 'allFav') {
-                filteredFavorites = filteredFavorites.filter(character => character.gender === payload);
-            }
+            let filteredFav = [...state.myFavCopy];
+            filteredFav = filteredFav.filter(character => character.gender === payload);
 
             return {
                 ...state,
-                myFavorites: filteredFavorites
+                myFav: filteredFav
             };
 
-        // case REMOVE_FAV:
-        //     return {
-        //         ...state,
-        //         myFavorites: state.myFavorites.filter(fav => fav.id !== payload)
-        //     };
-
-        // case FILTER:
-        //     const allFavCharactersFilter = state.allFavCharacters.filter(character => character.gender === payload);
-        //     if ('allFav' === payload)
-        //         return {
-        //             ...state,
-        //             myFavorites: [...state.allFavCharacters]
-        //         };
-        //     else
-        //         return {
-        //             ...state,
-        //             myFavorites: allFavCharactersFilter
-        //         };
-
         case ORDER:
-            const allFavCharactersCopy = [...state.allFavCharacters];
+            const allFavCharactersCopy = [...state.myFav];
             return {
                 ...state,
-                myFavorites:
+                myFav:
                     payload === 'A'
                         ? allFavCharactersCopy.sort((a, b) => a.id - b.id)
                         : allFavCharactersCopy.sort((a, b) => b.id - a.id)
+            };
+
+        case RESET:
+            return {
+                ...state,
+                myFav: state.myFavCopy
             };
 
         default:

@@ -37,7 +37,7 @@ function App() {
   };
 
   const onSearch = (id) => {
-    axios(`https://rickandmortyapi.com/api/character/${id}`).then(
+    axios(`https://rym2-production.up.railway.app/api/character/${id}?key=henrym-juanbaut`).then(
       ({ data }) => {
         if (data.name) {
           const index = characters.findIndex(

@@ -1,37 +1,61 @@
 import style from './Favorites.module.css';
 import Card from '../Card/Card';
-import { connect, useDispatch } from 'react-redux';
-import { filterCards, orderCards } from '../../redux/actions';
+import { useSelector, useDispatch } from 'react-redux';
+import { filterCards, orderCards, resetFav } from '../../redux/actions';
 import { useState } from 'react';
 
-const Favorites = ({ myFavorites }) => {
+const Favorites = () => {
   const [aux, setAux] = useState(false);
 
   const dispatch = useDispatch();
 
+  const myFav = useSelector((state) => state.myFav); // use useSelector instead of mapStateToProps
+
   const handleOrder = (event) => {
     dispatch(orderCards(event.target.value));
-    setAux(true);
+    setAux(!aux);
   };
 
   const handleFilter = (event) => {
     dispatch(filterCards(event.target.value));
   };
 
+  const handleReset = () => {
+    dispatch(resetFav());
+  };
+
   return (
     <div className={style.container}>
-      <select onChange={handleOrder}>
-        <option value="A">Ascendente</option>
-        <option value="D">Descendente</option>
-      </select>
-      <select onChange={handleFilter}>
-        <option value="allFav">All Characters</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Genderless">Genderless</option>
-        <option value="unknown">Unknown</option>
-      </select>
-      {myFavorites?.map((fav) => {
+      <div className={style.selectContainer}>
+        <select className={style.select} onChange={handleOrder}>
+          <option className={style.option} value="A">
+            Ascendente
+          </option>
+          <option className={style.option} value="D">
+            Descendente
+          </option>
+        </select>
+
+        <select className={style.select} onChange={handleFilter}>
+          <option className={style.option} value="Male">
+            Male
+          </option>
+          <option className={style.option} value="Female">
+            Female
+          </option>
+          <option className={style.option} value="Genderless">
+            Genderless
+          </option>
+          <option className={style.option} value="unknown">
+            Unknown
+          </option>
+        </select>
+        <button onClick={handleReset} className={style.button}>
+          All Characters
+        </button>
+      </div>
+
+      {myFav?.map((fav) => {
         return (
           <Card key={fav.id} id={fav.id} name={fav.name} image={fav.image} />
         );
@@ -40,10 +64,4 @@ const Favorites = ({ myFavorites }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    myFavorites: state.myFavorites,
-  };
-};
-
-export default connect(mapStateToProps, null)(Favorites);
+export default Favorites;
