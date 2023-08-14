@@ -3,6 +3,8 @@ import Card from '../Card/Card';
 import { useSelector, useDispatch } from 'react-redux';
 import { filterCards, orderCards, resetFav } from '../../redux/actions';
 import { useState } from 'react';
+import { Groups3 } from '@mui/icons-material';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 
 const Favorites = () => {
   const [aux, setAux] = useState(false);
@@ -51,6 +53,7 @@ const Favorites = () => {
           </option>
         </select>
         <button onClick={handleReset} className={style.button}>
+          <PeopleAltIcon sx={{ pr: 1 }} />
           All Characters
         </button>
       </div>
