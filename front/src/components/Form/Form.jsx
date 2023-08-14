@@ -1,17 +1,18 @@
-import React from "react";
-import style from "./Form.module.css";
-import logo from "../../assets/Rick-And-Morty-Logo.png";
-import { useState } from "react";
-import validation from "../Validation/Validation";
-import LoginIcon from "@mui/icons-material/Login";
-import EmailIcon from "@mui/icons-material/Email";
-import KeyIcon from "@mui/icons-material/Key";
+import React from 'react';
+import style from './Form.module.css';
+import logo from '../../assets/Rick-And-Morty-Logo.png';
+import { useState } from 'react';
+import validation from '../Validation/Validation';
+import { FormControl, Button, TextField } from '@mui/material';
+import LoginIcon from '@mui/icons-material/Login';
+import EmailIcon from '@mui/icons-material/Email';
+import KeyIcon from '@mui/icons-material/Key';
 
 const Form = ({ login }) => {
   const [errors, setErrors] = useState({});
   const [userData, setUserData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleSubmit = (event) => {
@@ -37,41 +38,48 @@ const Form = ({ login }) => {
 
   return (
     <div className={style.container}>
+      <div className={style.formContainer}>
       <img className={style.logo} src={logo} alt="ramlogo"></img>
-      <form onSubmit={handleSubmit} className={style.form}>
-        <div className={style.inputContainer}>
-          <EmailIcon sx={{ pr: 1 }} />
-          <input
-            placeholder="rick@mail.com"
-            className={style.input}
-            type="email"
-            name="email"
-            value={userData.email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={style.errorContainer}>
-          {errors.email && <p className={style.error}>{errors.email}</p>}
-        </div>
-        <div className={style.inputContainer}>
-          <KeyIcon sx={{ pr: 1 }} />
-          <input
-            placeholder="Morty123"
-            className={style.input}
-            type="password"
-            name="password"
-            value={userData.password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className={style.errorContainer}>
-          {errors.password && <p className={style.error}>{errors.password}</p>}
-        </div>
-        <button type="submit" className={style.button}>
-          <LoginIcon sx={{ pr: 1 }} />
-          Log in
-        </button>
-      </form>
+        <form onSubmit={handleSubmit} className={style.form}>
+          <FormControl>
+            <TextField
+              placeholder="rick@mail.com"
+              margin="dense"
+              label="Email"
+              type="email"
+              name="email"
+              value={userData.email}
+              onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email ? errors.email : ' '}
+              InputProps={{
+                startAdornment: <EmailIcon sx={{ mr: 1 }} />,
+              }}
+            />
+          </FormControl>
+
+          <FormControl>
+            <TextField
+              placeholder="Morty123"
+              margin="dense"
+              label="Password"
+              type="password"
+              name="password"
+              value={userData.password}
+              onChange={handleChange}
+              error={!!errors.password}
+              helperText={errors.password ? errors.password : ' '}
+              InputProps={{
+                startAdornment: <KeyIcon sx={{ mr: 1 }} />,
+              }}
+            />
+          </FormControl>
+
+          <Button type="submit" variant="contained" startIcon={<LoginIcon />}>
+            Log in
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };
