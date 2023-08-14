@@ -1,13 +1,22 @@
 import style from './SearchBar.module.css';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import { Star } from '@mui/icons-material';
+import { TextField, Box, Tabs, Tab } from '@mui/material';
 
 export default function SearchBar({ onSearch }) {
-  const navigate = useNavigate();
   const [id, setId] = useState('');
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const { pathname } = location;
+
+  // Check if the current path is "/home"
+  const isHome = pathname === '/home';
 
   const handleChange = (event) => {
     setId(event.target.value);
@@ -22,29 +31,40 @@ export default function SearchBar({ onSearch }) {
 
   return (
     <div className={style.sbContainer}>
-      <div className={style.container}>
-        <button className={style.button} onClick={() => navigate('/home')}>
-          <HomeIcon sx={{ pr: 1 }} />
-          Home
-        </button>
-        <button className={style.button} onClick={() => navigate('/favorites')}>
-          <Star sx={{ pr: 1 }} />
-          Favorites
-        </button>
-        <button className={style.button} onClick={() => navigate('/about')}>
-          <InfoIcon sx={{ pr: 1 }} />
-          About
-        </button>
-      </div>
-        <input
-          input
-          type="Search"
-          placeholder="Search..."
-          className={style.inputSearch}
+      <Box
+        sx={{ borderTop: 1, borderBottom: 1, borderColor: 'divider', mb: 4 }}
+      >
+        <Tabs centered>
+          <Tab
+            onClick={() => navigate('/home')}
+            icon={<HomeIcon />}
+            iconPosition="start"
+            label="Home"
+          />
+          <Tab
+            onClick={() => navigate('/favorites')}
+            icon={<Star />}
+            iconPosition="start"
+            label="Favorites"
+          />
+          <Tab
+            onClick={() => navigate('/about')}
+            icon={<InfoIcon />}
+            iconPosition="start"
+            label="About"
+          />
+        </Tabs>
+      </Box>
+
+      {isHome && (
+        <TextField
+          label="Search ID"
+          size="small"
           onKeyDown={handleKeyDown}
           onChange={handleChange}
           value={id}
         />
+      )}
     </div>
   );
 }
