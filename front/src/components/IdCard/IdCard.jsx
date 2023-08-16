@@ -1,13 +1,32 @@
 import React from 'react';
-import style from './Card.module.css';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { addFav, removeFav } from '../../redux/actions';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { Star, StarOutline } from '@mui/icons-material';
 
-const Card = ({ id, name, image, onClose, gender, addFav, removeFav, myFav }) => {
+import DeleteIcon from '@mui/icons-material/Delete';
+import InfoIcon from '@mui/icons-material/Info';
+import { Star, StarOutline } from '@mui/icons-material';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  IconButton,
+  Typography,
+} from '@mui/material';
+
+const IdCard = ({
+  id,
+  name,
+  image,
+  onClose,
+  gender,
+  addFav,
+  removeFav,
+  myFav,
+}) => {
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -38,34 +57,29 @@ const Card = ({ id, name, image, onClose, gender, addFav, removeFav, myFav }) =>
   }, [myFav]);
 
   return (
-    <div className={style.container}>
-      <div className={style.buttonHouse}>
+    <Card variant="outlined" sx={{ m: '16px' }}>
+      <CardHeader subheader={name} size="small" />
+      <CardMedia component="img" height="230" image={image} alt={name} />
+      <CardActions>
         {isHome && (
-          <button onClick={() => onClose(id)} className={style.closeButton}>
-            <DeleteIcon sx={{ color: 'azure' }} />
-          </button>
+          <IconButton onClick={() => onClose(id)}>
+            <DeleteIcon />
+          </IconButton>
         )}
         {isFav ? (
-          <button onClick={handleFavorites} className={style.favButton}>
-            <Star sx={{ color: 'azure' }} />
-          </button>
+          <IconButton onClick={handleFavorites}>
+            <Star />
+          </IconButton>
         ) : (
-          <button onClick={handleFavorites} className={style.favButton}>
-            <StarOutline sx={{ color: 'azure' }} />
-          </button>
+          <IconButton onClick={handleFavorites}>
+            <StarOutline />
+          </IconButton>
         )}
-      </div>
-
-      <img className={style.img} src={image} alt="" />
-      <div className={style.buttonContainer}>
-        <button
-          className={style.button}
-          onClick={() => navigate(`/detail/${id}`)}
-        >
-          {name}
-        </button>
-      </div>
-    </div>
+        <IconButton onClick={() => navigate(`/detail/${id}`)}>
+          <InfoIcon />
+        </IconButton>
+      </CardActions>
+    </Card>
   );
 };
 
@@ -86,4 +100,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default connect(mapStateToProps, mapDispatchToProps)(IdCard);

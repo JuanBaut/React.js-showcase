@@ -8,9 +8,15 @@ const theme = createTheme({
             'sans-serif',
         ].join(','),
     },
-
+    shape: {
+        borderRadius: '16px'
+    },
     palette: {
         mode: 'dark',
+        background:{
+            default:'#495057',
+            paper:'#495057'
+        },
         primary: {
             main: '#EEEF20',
         },

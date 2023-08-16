@@ -1,5 +1,5 @@
-import Card from "../Card/Card";
-import style from "./CardContainer.module.css";
+import IdCard from '../IdCard/IdCard';
+import style from './CardContainer.module.css';
 
 export default function CardContainer({ characters, onClose }) {
   return (
@@ -7,7 +7,7 @@ export default function CardContainer({ characters, onClose }) {
       {characters.map(
         ({ id, name, status, species, gender, origin, image }) => {
           return (
-            <Card
+            <IdCard
               key={id}
               id={id}
               name={name}

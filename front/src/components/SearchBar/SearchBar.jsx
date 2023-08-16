@@ -29,25 +29,34 @@ export default function SearchBar({ onSearch }) {
     }
   };
 
+  // tabs value control
+  const [value, setValue] = useState('0');
+  const handleValue = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <div className={style.sbContainer}>
       <Box
         sx={{ borderTop: 1, borderBottom: 1, borderColor: 'divider', mb: 4 }}
       >
-        <Tabs centered>
+        <Tabs onChange={handleValue} value={value} centered>
           <Tab
+            value="0"
             onClick={() => navigate('/home')}
             icon={<HomeIcon />}
             iconPosition="start"
             label="Home"
           />
           <Tab
+            value="1"
             onClick={() => navigate('/favorites')}
             icon={<Star />}
             iconPosition="start"
             label="Favorites"
           />
           <Tab
+            value="2"
             onClick={() => navigate('/about')}
             icon={<InfoIcon />}
             iconPosition="start"
@@ -58,6 +67,7 @@ export default function SearchBar({ onSearch }) {
 
       {isHome && (
         <TextField
+          sx={{ mb: 2, mx: 1 }}
           label="Search ID"
           size="small"
           onKeyDown={handleKeyDown}
