@@ -10,11 +10,10 @@ import { Star, StarOutline } from '@mui/icons-material';
 import {
   Card,
   CardActions,
-  CardContent,
   CardHeader,
   CardMedia,
   IconButton,
-  Typography,
+  Zoom,
 } from '@mui/material';
 
 const IdCard = ({
@@ -28,24 +27,27 @@ const IdCard = ({
   myFav,
 }) => {
   const navigate = useNavigate();
-
-  const location = useLocation();
-
-  const { pathname } = location;
-
   // Check if the current path is "/home"
+  const location = useLocation();
+  const { pathname } = location;
   const isHome = pathname === '/home';
 
+  const [isOpen, setIsOpen] = useState(true);
   const [isFav, setIsFav] = useState(false);
 
   const handleFavorites = () => {
     if (isFav) {
       setIsFav(false);
-      removeFav(id);
+      setTimeout(() => removeFav(id), 300);
     } else {
       setIsFav(true);
       addFav({ id, name, image, gender });
     }
+  };
+
+  const handleClose = (id) => {
+    setIsOpen((prev) => !prev);
+    setTimeout(() => onClose(id), 300);
   };
 
   useEffect(() => {
@@ -57,32 +59,33 @@ const IdCard = ({
   }, [myFav]);
 
   return (
-    <Card variant="outlined" sx={{ m: '16px' }}>
-      <CardHeader subheader={name} size="small" />
-      <CardMedia component="img" height="230" image={image} alt={name} />
-      <CardActions>
-        {isHome && (
-          <IconButton onClick={() => onClose(id)}>
-            <DeleteIcon />
+    <Zoom in={isHome ? isOpen : isFav}>
+      <Card variant="outlined" sx={{ m: '16px' }}>
+        <CardHeader subheader={name} size="small" />
+        <CardMedia component="img" height="230" image={image} alt={name} />
+        <CardActions>
+          {isHome && (
+            <IconButton onClick={() => handleClose(id)}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+          {isFav ? (
+            <IconButton onClick={handleFavorites}>
+              <Star />
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleFavorites}>
+              <StarOutline />
+            </IconButton>
+          )}
+          <IconButton onClick={() => navigate(`/detail/${id}`)}>
+            <InfoIcon />
           </IconButton>
-        )}
-        {isFav ? (
-          <IconButton onClick={handleFavorites}>
-            <Star />
-          </IconButton>
-        ) : (
-          <IconButton onClick={handleFavorites}>
-            <StarOutline />
-          </IconButton>
-        )}
-        <IconButton onClick={() => navigate(`/detail/${id}`)}>
-          <InfoIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+        </CardActions>
+      </Card>
+    </Zoom>
   );
 };
-
 const mapStateToProps = (state) => {
   return {
     myFav: state.myFav,

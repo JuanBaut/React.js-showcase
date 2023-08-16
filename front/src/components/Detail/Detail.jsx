@@ -3,8 +3,20 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import style from './Detail.module.css';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowBack from '@mui/icons-material/ArrowBack';
+
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Container,
+  IconButton,
+  LinearProgress,
+  Typography,
+  Zoom,
+} from '@mui/material';
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -17,39 +29,41 @@ const Detail = () => {
   const [character, setCharacter] = useState({});
 
   useEffect(() => {
-    axios(`https://rickandmortyapi.com/api/character/${id}`).then(
-      ({ data }) => {
-        if (data.name) {
-          setCharacter(data);
-        } else {
-          alert('No hay personajes con ese ID');
-        }
-      }
+    axios(
+      `https://rym2-production.up.railway.app/api/character/${id}?key=henrym-juanbaut`
+    ).then(({ data }) => {
+      setCharacter(data);
+    });
+  }, []);
+
+  if (!character || !character.name) {
+    return (
+      <Container maxWidth="xs">
+        <LinearProgress></LinearProgress>
+      </Container>
     );
-    return setCharacter({});
-  }, [id]);
-
-  return (
-    <div className={style.container}>
-      <div className={style.main}>
-        <button className={style.backButton} onClick={handleGoBack}>
-          <ArrowBackIosNewIcon sx={{ color: 'azure' }} />
-        </button>
-        <img
-          className={style.image}
-          src={character?.image}
-          alt={character?.name}
-        />
-        <div className={style.tagsContainer}>
-          <p className={style.tags}>Origin: {character?.origin?.name}</p>
-          <p className={style.tags}>Name: {character?.name}</p>
-          <p className={style.tags}>Status: {character?.status}</p>
-          <p className={style.tags}>Species: {character?.species}</p>
-          <p className={style.tags}>Gender: {character?.gender}</p>
-        </div>
-      </div>
-    </div>
-  );
+  } else {
+    return (
+      <Container maxWidth="xs">
+        <Zoom in={true}>
+          <Card>
+            <CardHeader title={character?.name} />
+            <CardMedia height="400" component="img" image={character?.image} />
+            <CardContent>
+              <Typography>Origin: {character?.origin?.name}</Typography>
+              <Typography>Status: {character?.status}</Typography>
+              <Typography>Species: {character?.species}</Typography>
+              <Typography>Gender: {character?.gender}</Typography>
+            </CardContent>
+            <CardActions>
+              <IconButton onClick={handleGoBack}>
+                <ArrowBack />
+              </IconButton>
+            </CardActions>
+          </Card>
+        </Zoom>
+      </Container>
+    );
+  }
 };
-
 export default Detail;
