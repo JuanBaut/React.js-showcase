@@ -1,35 +1,5 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    vertical-align: middle;
-    height: 100vh;
-}
-
 .logo {
-    height: 6rem;
+    height: 5rem;
     width: auto;
     margin-bottom: 1rem;
-}
-
-.formContainer {
-    filter: drop-shadow(5px 5px 10px #00000061);
-    background-color: #495057;
-    width: 20rem;
-    border-radius: 1rem;
-    margin-bottom: 5%;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    vertical-align: middle;
-}
-
-.form {
-    padding: 1rem 0 1rem 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    vertical-align: middle;
 }

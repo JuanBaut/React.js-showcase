@@ -15,7 +15,7 @@ import {
 
 const About = () => {
   return (
-    <Container maxWidth="sm">
+    <Container sx={{mb: 3}} maxWidth="sm">
       <Card>
         <CardHeader
           title="Juan Andres Bautista"

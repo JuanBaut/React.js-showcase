@@ -3,10 +3,18 @@ import style from './Form.module.css';
 import logo from '../../assets/Rick-And-Morty-Logo.png';
 import { useState } from 'react';
 import validation from '../Validation/Validation';
-import { FormControl, Button, TextField } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Box,
+  Container,
+  Paper,
+  ButtonGroup,
+} from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import EmailIcon from '@mui/icons-material/Email';
 import KeyIcon from '@mui/icons-material/Key';
+import CreateIcon from '@mui/icons-material/Create';
 
 const Form = ({ login }) => {
   const [errors, setErrors] = useState({});
@@ -37,50 +45,58 @@ const Form = ({ login }) => {
   };
 
   return (
-    <div className={style.container}>
-      <div className={style.formContainer}>
-      <img className={style.logo} src={logo} alt="ramlogo"></img>
-        <form onSubmit={handleSubmit} className={style.form}>
-          <FormControl>
-            <TextField
-              placeholder="rick@mail.com"
-              margin="dense"
-              label="Email"
-              type="email"
-              name="email"
-              value={userData.email}
-              onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email ? errors.email : ' '}
-              InputProps={{
-                startAdornment: <EmailIcon sx={{ mr: 1 }} />,
-              }}
-            />
-          </FormControl>
-
-          <FormControl>
-            <TextField
-              placeholder="Morty123"
-              margin="dense"
-              label="Password"
-              type="password"
-              name="password"
-              value={userData.password}
-              onChange={handleChange}
-              error={!!errors.password}
-              helperText={errors.password ? errors.password : ' '}
-              InputProps={{
-                startAdornment: <KeyIcon sx={{ mr: 1 }} />,
-              }}
-            />
-          </FormControl>
-
+    <Container component="main" maxWidth="xs">
+      <Box
+      
+        sx={{
+          py: 3,
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+        component="form"
+        autoComplete="off"
+        noValidate
+        onSubmit={handleSubmit}
+      >
+        <img className={style.logo} src={logo} alt="ramlogo"></img>
+        <TextField
+          required
+          fullWidth
+          placeholder="rick@mail.com"
+          margin="dense"
+          label="Email"
+          type="email"
+          name="email"
+          value={userData.email}
+          onChange={handleChange}
+          error={!!errors.email}
+          helperText={errors.email ? errors.email : ' '}
+        />
+        <TextField
+          required
+          fullWidth
+          placeholder="Morty123"
+          margin="dense"
+          label="Password"
+          type="password"
+          name="password"
+          value={userData.password}
+          onChange={handleChange}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password : ' '}
+        />
+        <ButtonGroup>
           <Button type="submit" variant="contained" startIcon={<LoginIcon />}>
             Log in
           </Button>
-        </form>
-      </div>
-    </div>
+          <Button type="submit" variant="contained" startIcon={<CreateIcon />}>
+            Sign In
+          </Button>
+        </ButtonGroup>
+      </Box>
+    </Container>
   );
 };
 
