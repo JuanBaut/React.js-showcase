@@ -1,6 +1,9 @@
 # This is a React.js showcase.
 ### I made this project while in my bootcamp (Henry), its only real functionality is to preview my frontend and backend skills with a pokedex-like or wiki-like appearance with a REST api that provides characters from the popular show Rick and Morty.
 
+# Demo  
+https://github.com/JuanBaut/React.js-showcase/assets/90160941/da6ff682-15f2-4ed2-b9d5-1b52d9bc9f0f
+
 ### It is still in progress, so some of the frontend may change, and the backend will be completed. 
 
 Dependencies:
